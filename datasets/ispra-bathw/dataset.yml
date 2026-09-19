@@ -1,0 +1,68 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "ispra_bathw"
+  source_id: "ispra_linked_data"
+  tags: [ambiente, ispra, balneazione, acqua, qualità]
+  category: ambiente
+  description: "Qualità acque di balneazione in Italia. Dati SPARQL da linked.isprambiente.it. Indicatore quality: 0=non classificato, 1=eccellente, 2=buona, 3=sufficiente, 4=scadente."
+  years: [2024]
+  # Anno nominale: il graph SPARQL contiene la serie 1990-2024.
+  # year=2024 è il graph più recente. Per anni precedenti, cambiare il graph nella query.
+
+raw:
+  sources:
+    - name: "ispra_bathw_sparql"
+      type: "sparql"
+      client:
+        timeout: 120
+      args:
+        endpoint: "https://dati.isprambiente.it/sparql"
+        # NOTA: Virtuoso non accetta CONTAINS in FILTER — usare lang() = 'it'
+        # Il graph include {year} ma non è un placeholder toolkit: va cambiato manualmente
+        query: |
+          PREFIX top: <https://w3id.org/italia/env/onto/top/>
+          SELECT ?uri ?label ?value ?uom WHERE {
+            GRAPH <https://w3id.org/italia/env/ld/bathw/2024/> {
+              ?uri rdfs:label ?label .
+              ?uri top:hasValue ?vn .
+              ?vn top:value ?value .
+              ?vn top:hasUnitOfMeasure ?uom .
+              FILTER(lang(?label) = 'it')
+            }
+          }
+        accept_format: "sparql-results+json"
+        pages: 5
+        step: 5000
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [codice_sito, indicatore, anno, valore, unita_misura]
+  validate:
+    not_null: [codice_sito, indicatore, anno]
+    min_rows: 3000
+
+mart:
+  tables:
+    - name: "mart_sintesi"
+      sql: "sql/mart_sintesi.sql"
+    - name: "mart_sintesi_anno"
+      sql: "sql/mart_sintesi_anno.sql"
+  required_tables:
+    - "mart_sintesi"
+    - "mart_sintesi_anno"
+  validate:
+    table_rules:
+      mart_sintesi:
+        required_columns: [anno, totale_siti, eccellente, buona, sufficiente, scadente]
+        primary_key: [anno]
+        min_rows: 1
+      mart_sintesi_anno:
+        required_columns: [anno, totale_siti, eccellente, buona, sufficiente, scadente]
+        primary_key: [anno]
+        min_rows: 1
+
+validation:
+  fail_on_error: true

@@ -1,0 +1,56 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "ispra_places"
+  source_id: "ispra_linked_data"
+  tags: [anagrafica, ispra, istat, comuni]
+  category: support
+  description: "Anagrafica comuni italiani dal place graph ISPRA. Codice ISTAT + nome. Usata per JOIN con altri dataset ISPRA."
+  years: [2024]
+
+raw:
+  sources:
+    - name: "ispra_places_sparql"
+      type: "sparql"
+      client:
+        timeout: 120
+      args:
+        endpoint: "https://dati.isprambiente.it/sparql"
+        query: |
+          PREFIX place: <https://w3id.org/italia/env/onto/place/>
+          PREFIX top: <https://w3id.org/italia/env/onto/top/>
+          SELECT ?istat ?name ?label WHERE {
+            GRAPH <https://w3id.org/italia/env/ld/place/> {
+              ?p place:istat ?istat .
+              ?p top:name ?name .
+              ?p rdfs:label ?label .
+            }
+          }
+        accept_format: "sparql-results+json"
+        pages: 1
+        step: 15000
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [codice_istat, nome]
+  validate:
+    primary_key: [codice_istat]
+    min_rows: 7000
+
+mart:
+  tables:
+    - name: "mart_places"
+      sql: "sql/mart_places.sql"
+  required_tables:
+    - "mart_places"
+  validate:
+    table_rules:
+      mart_places:
+        required_columns: [codice_istat, nome]
+        primary_key: [codice_istat]
+        min_rows: 7000
+
+validation:
+  fail_on_error: true
