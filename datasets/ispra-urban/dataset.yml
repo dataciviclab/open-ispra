@@ -6,41 +6,36 @@ dataset:
   source_id: "ispra_linked_data"
   tags: [ambiente, ispra, qualita-urbana, comuni]
   category: ambiente
-  description: "Qualità ambientale urbana in Italia. Indicatori ambientali per comune da linked.isprambiente.it. Dati per ~600 comuni capoluogo."
+  description: "Qualita ambientale urbana in Italia (1970-2019). Indicatori ambientali per comune da linked.isprambiente.it. 27 anni, ~245-600 comuni."
   years: [2018]
-  # Anno nominale: il graph SPARQL contiene la serie 1970-2019.
-  # year=2018 è il graph più recente. Per anni precedenti, cambiare il graph nella query.
+  # Anno nominale: lo script recupera TUTTI gli anni disponibili in un singolo CSV.
+  # year=2018 e il nome del run, non limita i dati scaricati.
 
 raw:
   sources:
-    - name: "ispra_urban_sparql"
-      type: "sparql"
-      client:
-        timeout: 180
+    - name: "ispra_urban_sparql_all"
+      type: "script"
       args:
-        endpoint: "https://dati.isprambiente.it/sparql"
-        query: |
-          PREFIX top: <https://w3id.org/italia/env/onto/top/>
-          SELECT ?uri ?label ?value ?uom WHERE {
-            GRAPH <https://w3id.org/italia/env/ld/urban/2018/> {
-              ?uri rdfs:label ?label .
-              ?uri top:hasValue ?vn .
-              ?vn top:value ?value .
-              ?vn top:hasUnitOfMeasure ?uom .
-              FILTER(lang(?label) = 'it')
-            }
-          }
-        accept_format: "sparql-results+json"
-        pages: 10
-        step: 5000
+        command: "python scripts/fetch_urban.py raw_input.csv"
+        output: "raw_input.csv"
       primary: true
 
 clean:
   sql: "sql/clean.sql"
+  read:
+    source: auto
+    mode: latest
+    strict_mode: false
+    columns:
+      uri: VARCHAR
+      label: VARCHAR
+      value: VARCHAR
+      uom: VARCHAR
+      year: VARCHAR
   required_columns: [codice_istat, indicatore, anno, valore, unita_misura]
   validate:
     not_null: [codice_istat, indicatore, anno]
-    min_rows: 10000
+    min_rows: 50000
 
 mart:
   tables:
@@ -56,11 +51,11 @@ mart:
       mart_comuni:
         required_columns: [codice_istat, anno, totale_indicatori]
         primary_key: [codice_istat, anno]
-        min_rows: 100
+        min_rows: 1000
       mart_sintesi:
         required_columns: [anno, totale_comuni, totale_indicatori]
         primary_key: [anno]
-        min_rows: 1
+        min_rows: 20
 
 validation:
   fail_on_error: true

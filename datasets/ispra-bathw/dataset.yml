@@ -4,37 +4,20 @@ schema_version: 1
 dataset:
   name: "ispra_bathw"
   source_id: "ispra_linked_data"
-  tags: [ambiente, ispra, balneazione, acqua, qualità]
+  tags: [ambiente, ispra, balneazione, acqua, qualita]
   category: ambiente
-  description: "Qualità acque di balneazione in Italia. Dati SPARQL da linked.isprambiente.it. Indicatore quality: 0=non classificato, 1=eccellente, 2=buona, 3=sufficiente, 4=scadente."
+  description: "Qualita acque di balneazione in Italia (1990-2024). Dati SPARQL da linked.isprambiente.it. 35 anni di serie storica, ~5.500 siti/anno."
   years: [2024]
-  # Anno nominale: il graph SPARQL contiene la serie 1990-2024.
-  # year=2024 è il graph più recente. Per anni precedenti, cambiare il graph nella query.
+  # Anno nominale: lo script recupera TUTTI gli anni (1990-2024) in un singolo CSV.
+  # year=2024 e il nome del run, non limita i dati scaricati.
 
 raw:
   sources:
-    - name: "ispra_bathw_sparql"
-      type: "sparql"
-      client:
-        timeout: 120
+    - name: "ispra_bathw_sparql_all"
+      type: "script"
       args:
-        endpoint: "https://dati.isprambiente.it/sparql"
-        # NOTA: Virtuoso non accetta CONTAINS in FILTER — usare lang() = 'it'
-        # Il graph include {year} ma non è un placeholder toolkit: va cambiato manualmente
-        query: |
-          PREFIX top: <https://w3id.org/italia/env/onto/top/>
-          SELECT ?uri ?label ?value ?uom WHERE {
-            GRAPH <https://w3id.org/italia/env/ld/bathw/2024/> {
-              ?uri rdfs:label ?label .
-              ?uri top:hasValue ?vn .
-              ?vn top:value ?value .
-              ?vn top:hasUnitOfMeasure ?uom .
-              FILTER(lang(?label) = 'it')
-            }
-          }
-        accept_format: "sparql-results+json"
-        pages: 5
-        step: 5000
+        command: "python scripts/fetch_bathw.py raw_input.csv"
+        output: "raw_input.csv"
       primary: true
 
 clean:
@@ -42,7 +25,7 @@ clean:
   required_columns: [codice_sito, indicatore, anno, valore, unita_misura]
   validate:
     not_null: [codice_sito, indicatore, anno]
-    min_rows: 3000
+    min_rows: 100000
 
 mart:
   tables:
@@ -58,11 +41,11 @@ mart:
       mart_sintesi:
         required_columns: [anno, totale_siti, eccellente, buona, sufficiente, scadente]
         primary_key: [anno]
-        min_rows: 1
+        min_rows: 30
       mart_sintesi_anno:
         required_columns: [anno, totale_siti, eccellente, buona, sufficiente, scadente]
         primary_key: [anno]
-        min_rows: 1
+        min_rows: 30
 
 validation:
   fail_on_error: true
