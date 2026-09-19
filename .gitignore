@@ -3,6 +3,7 @@
 # =========================
 out/*
 !out/.gitkeep
+raw_input.csv
 
 # =========================
 # NOTEBOOK / PYTHON
