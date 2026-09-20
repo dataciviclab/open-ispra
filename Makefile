@@ -61,7 +61,7 @@ registry:
 	$(TOOLKIT) registry build
 
 registry-write:
-	$(TOOLKIT) registry build --write
+	$(TOOLKIT) registry build --prefix open-ispra --write
 
 .PHONY: help
 help:
