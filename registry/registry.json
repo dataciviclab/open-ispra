@@ -1,0 +1,1077 @@
+{
+  "schema_version": 1,
+  "repo": "open-ispra",
+  "source_repo": "dataciviclab/open-ispra",
+  "updated_at": "2026-09-20",
+  "datasets": [
+    {
+      "slug": "ispra_bathw",
+      "name": "Ispra Bathw",
+      "description": "Qualita acque di balneazione in Italia (1990-2024). Dati SPARQL da linked.isprambiente.it. 35 anni di serie storica, ~5.500 siti/anno.",
+      "source": "",
+      "source_id": "ispra_linked_data",
+      "period": {
+        "start": 2024,
+        "end": 2024
+      },
+      "tags": [
+        "ambiente",
+        "ispra",
+        "balneazione",
+        "acqua",
+        "qualita"
+      ],
+      "category": "ambiente",
+      "columns": [
+        {
+          "name": "codice_sito",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "indicatore",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "indicatore_code"
+        },
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "valore",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "unita_misura",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open-ispra/ispra_bathw/2024/ispra_bathw_2024_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "ispra_bathw__mart_sintesi",
+        "ispra_bathw__mart_sintesi_anno"
+      ]
+    },
+    {
+      "slug": "ispra_consumo_suolo",
+      "name": "Ispra Consumo Suolo",
+      "description": "",
+      "source": "",
+      "source_id": "ispra",
+      "period": {
+        "start": 2024,
+        "end": 2024
+      },
+      "tags": [
+        "ambiente",
+        "ispra",
+        "consumo",
+        "suolo"
+      ],
+      "category": "ambiente",
+      "columns": [
+        {
+          "name": "pro_com",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "comune",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_name"
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "periodo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "month"
+        },
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "incremento_netto_ha",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "incremento_lordo_ha",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "ripristino_ha",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "stock_ha",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "stock_pct",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open-ispra/ispra_consumo_suolo/2024/ispra_consumo_suolo_2024_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "ispra_consumo_suolo__mart_comuni",
+        "ispra_consumo_suolo__mart_sintesi"
+      ]
+    },
+    {
+      "slug": "ispra_iffi",
+      "name": "Ispra Iffi",
+      "description": "Inventario dei Fenomeni Franosi in Italia (IFFI). Statistiche frane per regione e provincia da IdroGEO API.",
+      "source": "",
+      "source_id": "ispra",
+      "period": {
+        "start": 2024,
+        "end": 2024
+      },
+      "tags": [
+        "ambiente",
+        "ispra",
+        "frane",
+        "dissesto",
+        "idrogeologico"
+      ],
+      "category": "ambiente",
+      "columns": [
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "cod_regione",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "nr_frane",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open-ispra/ispra_iffi/2024/ispra_iffi_2024_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "ispra_iffi__mart_italia",
+        "ispra_iffi__mart_regioni"
+      ]
+    },
+    {
+      "slug": "ispra_pest",
+      "name": "Ispra Pest",
+      "description": "Concentrazioni pesticidi nelle acque sotterranee in Italia (2018-2021). ~3M misurazioni/anno per sostanza CAS.",
+      "source": "",
+      "source_id": "ispra_linked_data",
+      "period": {
+        "start": 2021,
+        "end": 2021
+      },
+      "tags": [
+        "ambiente",
+        "ispra",
+        "pesticidi",
+        "acque",
+        "inquinamento"
+      ],
+      "category": "ambiente",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "station_id",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "cas_number",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "valore",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "unita_misura",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open-ispra/ispra_pest/2021/ispra_pest_2021_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "ispra_pest__mart_sintesi"
+      ]
+    },
+    {
+      "slug": "ispra_pest_stations",
+      "name": "Ispra Pest Stations",
+      "description": "Anagrafica stazioni pesticidi ISPRA con coordinate geografiche (2018-2021). ~4-5K stazioni/anno.",
+      "source": "",
+      "source_id": "ispra_linked_data",
+      "period": {
+        "start": 2021,
+        "end": 2021
+      },
+      "tags": [
+        "anagrafica",
+        "ispra",
+        "pesticidi",
+        "stazioni"
+      ],
+      "category": "support",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "station_id",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "lat",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "lon",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open-ispra/ispra_pest_stations/2021/ispra_pest_stations_2021_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "ispra_pest_stations__mart_stations"
+      ]
+    },
+    {
+      "slug": "ispra_places",
+      "name": "Ispra Places",
+      "description": "Anagrafica comuni italiani dal place graph ISPRA. Codice ISTAT + nome. Usata per JOIN con altri dataset ISPRA.",
+      "source": "",
+      "source_id": "ispra_linked_data",
+      "period": {
+        "start": 2024,
+        "end": 2024
+      },
+      "tags": [
+        "anagrafica",
+        "ispra",
+        "istat",
+        "comuni"
+      ],
+      "category": "support",
+      "columns": [
+        {
+          "name": "codice_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "nome",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open-ispra/ispra_places/2024/ispra_places_2024_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "ispra_places__mart_places"
+      ]
+    },
+    {
+      "slug": "ispra_rmn",
+      "name": "Ispra Rmn",
+      "description": "Rete Mareografica Nazionale — livelli marini da 36 stazioni costiere italiane (2010-2023). Dati orari da boe e st fisse.",
+      "source": "",
+      "source_id": "ispra_linked_data",
+      "period": {
+        "start": 2023,
+        "end": 2023
+      },
+      "tags": [
+        "ambiente",
+        "ispra",
+        "mare",
+        "livello",
+        "maree",
+        "clima"
+      ],
+      "category": "ambiente",
+      "columns": [
+        {
+          "name": "station_id",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "mese",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "month"
+        },
+        {
+          "name": "timestamp_utc",
+          "type": "TIMESTAMP",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "livello",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open-ispra/ispra_rmn/2023/ispra_rmn_2023_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "ispra_rmn__mart_stazioni",
+        "ispra_rmn__mart_sintesi"
+      ]
+    },
+    {
+      "slug": "ispra_urban",
+      "name": "Ispra Urban",
+      "description": "Qualita ambientale urbana in Italia (1970-2019). Indicatori ambientali per comune da linked.isprambiente.it. 27 anni, ~245-600 comuni.",
+      "source": "",
+      "source_id": "ispra_linked_data",
+      "period": {
+        "start": 2018,
+        "end": 2018
+      },
+      "tags": [
+        "ambiente",
+        "ispra",
+        "qualita-urbana",
+        "comuni"
+      ],
+      "category": "ambiente",
+      "columns": [
+        {
+          "name": "codice_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "municipality_code"
+        },
+        {
+          "name": "indicatore",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "indicatore_code"
+        },
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "valore",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "unita_misura",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open-ispra/ispra_urban/2018/ispra_urban_2018_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "ispra_urban__mart_comuni",
+        "ispra_urban__mart_sintesi"
+      ]
+    }
+  ],
+  "marts": [
+    {
+      "slug": "ispra_bathw__mart_sintesi",
+      "dataset": "ispra_bathw",
+      "table": "mart_sintesi",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_bathw/2024/mart_sintesi.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_bathw__mart_sintesi_anno",
+      "dataset": "ispra_bathw",
+      "table": "mart_sintesi_anno",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_bathw/2024/mart_sintesi_anno.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_consumo_suolo__mart_comuni",
+      "dataset": "ispra_consumo_suolo",
+      "table": "mart_comuni",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_consumo_suolo/2024/mart_comuni.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_consumo_suolo__mart_sintesi",
+      "dataset": "ispra_consumo_suolo",
+      "table": "mart_sintesi",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_consumo_suolo/2024/mart_sintesi.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_iffi__mart_italia",
+      "dataset": "ispra_iffi",
+      "table": "mart_italia",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_iffi/2024/mart_italia.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_iffi__mart_regioni",
+      "dataset": "ispra_iffi",
+      "table": "mart_regioni",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_iffi/2024/mart_regioni.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_pest__mart_sintesi",
+      "dataset": "ispra_pest",
+      "table": "mart_sintesi",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_pest/2021/mart_sintesi.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_pest_stations__mart_stations",
+      "dataset": "ispra_pest_stations",
+      "table": "mart_stations",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_pest_stations/2021/mart_stations.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_places__mart_places",
+      "dataset": "ispra_places",
+      "table": "mart_places",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_places/2024/mart_places.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_rmn__mart_sintesi",
+      "dataset": "ispra_rmn",
+      "table": "mart_sintesi",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_rmn/2023/mart_sintesi.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_rmn__mart_stazioni",
+      "dataset": "ispra_rmn",
+      "table": "mart_stazioni",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_rmn/2023/mart_stazioni.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_urban__mart_comuni",
+      "dataset": "ispra_urban",
+      "table": "mart_comuni",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_urban/2018/mart_comuni.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "ispra_urban__mart_sintesi",
+      "dataset": "ispra_urban",
+      "table": "mart_sintesi",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_urban/2018/mart_sintesi.parquet",
+        "multi_file": false
+      }
+    }
+  ],
+  "signals": [
+    {
+      "id": "ispra_bathw",
+      "source_id": "ispra_linked_data",
+      "status": "ok",
+      "label": "ispra_bathw",
+      "detail": "anno 2024 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260920T122935Z_1ac062a1",
+        "year": 2024,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 179203,
+          "clean": 173074,
+          "mart": 70
+        },
+        "output_bytes": {
+          "raw": 44096222,
+          "clean": 215104,
+          "mart": 4088
+        },
+        "started_at": "2026-09-20T12:29:35.522763+00:00",
+        "finished_at": "2026-09-20T12:30:28.934266+00:00",
+        "duration_seconds": 53.412
+      }
+    },
+    {
+      "id": "ispra_consumo_suolo",
+      "source_id": "ispra",
+      "status": "ok",
+      "label": "ispra_consumo_suolo",
+      "detail": "anno 2024 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260920T123030Z_db548742",
+        "year": 2024,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "clean": 86856,
+          "mart": 88008
+        },
+        "output_bytes": {
+          "raw": 1725183,
+          "clean": 864543,
+          "mart": 1469273
+        },
+        "started_at": "2026-09-20T12:30:30.028514+00:00",
+        "finished_at": "2026-09-20T12:30:37.422152+00:00",
+        "duration_seconds": 7.394
+      }
+    },
+    {
+      "id": "ispra_iffi",
+      "source_id": "ispra",
+      "status": "ok",
+      "label": "ispra_iffi",
+      "detail": "anno 2024 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260920T123037Z_3fc6868d",
+        "year": 2024,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 20,
+          "clean": 20,
+          "mart": 21
+        },
+        "output_bytes": {
+          "raw": 418,
+          "clean": 806,
+          "mart": 1859
+        },
+        "started_at": "2026-09-20T12:30:37.834660+00:00",
+        "finished_at": "2026-09-20T12:30:46.771701+00:00",
+        "duration_seconds": 8.937
+      }
+    },
+    {
+      "id": "ispra_pest",
+      "source_id": "ispra_linked_data",
+      "status": "ok",
+      "label": "ispra_pest",
+      "detail": "anno 2021 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260920T123047Z_e9f62bf1",
+        "year": 2021,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 9644227,
+          "clean": 9644221,
+          "mart": 4
+        },
+        "output_bytes": {
+          "raw": 1308692363,
+          "clean": 12951661,
+          "mart": 1175
+        },
+        "started_at": "2026-09-20T12:30:47.189367+00:00",
+        "finished_at": "2026-09-20T12:40:30.284071+00:00",
+        "duration_seconds": 583.095
+      }
+    },
+    {
+      "id": "ispra_rmn",
+      "source_id": "ispra_linked_data",
+      "status": "ok",
+      "label": "ispra_rmn",
+      "detail": "anno 2023 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260920T124030Z_6e256ee9",
+        "year": 2023,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 29229818,
+          "clean": 29229815,
+          "mart": 321
+        },
+        "output_bytes": {
+          "raw": 1264031733,
+          "clean": 126839948,
+          "mart": 10779
+        },
+        "started_at": "2026-09-20T12:40:30.684023+00:00",
+        "finished_at": "2026-09-20T12:54:37.931912+00:00",
+        "duration_seconds": 847.248
+      }
+    },
+    {
+      "id": "ispra_urban",
+      "source_id": "ispra_linked_data",
+      "status": "ok",
+      "label": "ispra_urban",
+      "detail": "anno 2018 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260920T125438Z_9e6e782a",
+        "year": 2018,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 205044,
+          "clean": 201446,
+          "mart": 4802
+        },
+        "output_bytes": {
+          "raw": 42066741,
+          "clean": 1158382,
+          "mart": 43359
+        },
+        "started_at": "2026-09-20T12:54:38.333070+00:00",
+        "finished_at": "2026-09-20T12:55:25.715479+00:00",
+        "duration_seconds": 47.382
+      }
+    },
+    {
+      "id": "ispra_pest_stations",
+      "source_id": "ispra_linked_data",
+      "status": "ok",
+      "label": "ispra_pest_stations",
+      "detail": "anno 2021 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260920T122926Z_d1e65b62",
+        "year": 2021,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 16507,
+          "clean": 16507,
+          "mart": 16507
+        },
+        "output_bytes": {
+          "raw": 613271,
+          "clean": 183205,
+          "mart": 183205
+        },
+        "started_at": "2026-09-20T12:29:26.809680+00:00",
+        "finished_at": "2026-09-20T12:29:32.658056+00:00",
+        "duration_seconds": 5.848
+      }
+    },
+    {
+      "id": "ispra_places",
+      "source_id": "ispra_linked_data",
+      "status": "ok",
+      "label": "ispra_places",
+      "detail": "anno 2024 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260920T122933Z_d01d561f",
+        "year": 2024,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 9902,
+          "clean": 9530,
+          "mart": 9530
+        },
+        "output_bytes": {
+          "raw": 317656,
+          "clean": 86956,
+          "mart": 86956
+        },
+        "started_at": "2026-09-20T12:29:33.057618+00:00",
+        "finished_at": "2026-09-20T12:29:35.133981+00:00",
+        "duration_seconds": 2.076
+      }
+    }
+  ],
+  "codelists": [],
+  "entities": {
+    "entities": {
+      "Comune": {
+        "entity": "Comune",
+        "label": "Comune (ISTAT)",
+        "datasets": [
+          {
+            "slug": "ispra_consumo_suolo",
+            "name": "Ispra Consumo Suolo",
+            "column": "pro_com",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "ispra_consumo_suolo",
+            "name": "Ispra Consumo Suolo",
+            "column": "comune",
+            "semantic_type": "municipality_name"
+          },
+          {
+            "slug": "ispra_places",
+            "name": "Ispra Places",
+            "column": "codice_istat",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "ispra_urban",
+            "name": "Ispra Urban",
+            "column": "codice_istat",
+            "semantic_type": "municipality_code"
+          }
+        ],
+        "types": {
+          "municipality_code": 3,
+          "municipality_name": 1
+        }
+      },
+      "Indicatore": {
+        "entity": "Indicatore",
+        "label": "Indicatore",
+        "datasets": [
+          {
+            "slug": "ispra_bathw",
+            "name": "Ispra Bathw",
+            "column": "indicatore",
+            "semantic_type": "indicatore_code"
+          },
+          {
+            "slug": "ispra_urban",
+            "name": "Ispra Urban",
+            "column": "indicatore",
+            "semantic_type": "indicatore_code"
+          }
+        ],
+        "types": {
+          "indicatore_code": 2
+        }
+      },
+      "Provincia": {
+        "entity": "Provincia",
+        "label": "Provincia",
+        "datasets": [
+          {
+            "slug": "ispra_consumo_suolo",
+            "name": "Ispra Consumo Suolo",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          }
+        ],
+        "types": {
+          "province_code": 1
+        }
+      },
+      "Regione": {
+        "entity": "Regione",
+        "label": "Regione",
+        "datasets": [
+          {
+            "slug": "ispra_consumo_suolo",
+            "name": "Ispra Consumo Suolo",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "ispra_iffi",
+            "name": "Ispra Iffi",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "ispra_iffi",
+            "name": "Ispra Iffi",
+            "column": "cod_regione",
+            "semantic_type": "region_code"
+          }
+        ],
+        "types": {
+          "region_code": 3
+        }
+      },
+      "Tempo": {
+        "entity": "Tempo",
+        "label": "Tempo / data",
+        "datasets": [
+          {
+            "slug": "ispra_bathw",
+            "name": "Ispra Bathw",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
+            "slug": "ispra_consumo_suolo",
+            "name": "Ispra Consumo Suolo",
+            "column": "periodo",
+            "semantic_type": "month"
+          },
+          {
+            "slug": "ispra_consumo_suolo",
+            "name": "Ispra Consumo Suolo",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
+            "slug": "ispra_pest",
+            "name": "Ispra Pest",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
+            "slug": "ispra_pest_stations",
+            "name": "Ispra Pest Stations",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
+            "slug": "ispra_rmn",
+            "name": "Ispra Rmn",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
+            "slug": "ispra_rmn",
+            "name": "Ispra Rmn",
+            "column": "mese",
+            "semantic_type": "month"
+          },
+          {
+            "slug": "ispra_urban",
+            "name": "Ispra Urban",
+            "column": "anno",
+            "semantic_type": "year"
+          }
+        ],
+        "types": {
+          "year": 6,
+          "month": 2
+        }
+      }
+    },
+    "bridges": [
+      {
+        "from": {
+          "entity": "Indicatore",
+          "dataset": "ispra_bathw",
+          "via": "indicatore_code"
+        },
+        "to": {
+          "entity": "Progetto",
+          "bridge": "pnrr_indicatori_target",
+          "on": "cup",
+          "semantic_type": "cup_code"
+        }
+      },
+      {
+        "from": {
+          "entity": "Indicatore",
+          "dataset": "ispra_urban",
+          "via": "indicatore_code"
+        },
+        "to": {
+          "entity": "Progetto",
+          "bridge": "pnrr_indicatori_target",
+          "on": "cup",
+          "semantic_type": "cup_code"
+        }
+      }
+    ]
+  }
+}
