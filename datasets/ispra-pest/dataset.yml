@@ -15,7 +15,7 @@ raw:
     - name: "ispra_pest_indicators"
       type: "script"
       client:
-        timeout: 3600
+        timeout: 900
       args:
         command: "python scripts/fetch_indicators.py raw_input.csv"
         output: "raw_input.csv"
