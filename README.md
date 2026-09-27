@@ -61,7 +61,7 @@ I file clean e mart sono in `out/data/` in formato Parquet, leggibili da qualsia
 
 - **Hai trovato un dato mancante?** [Apri una Discussion](https://github.com/dataciviclab/dataciviclab/discussions)
 - **Vuoi aggiungere un dataset ISPRA?** Segui la guida in `CONTRIBUTING.md`
-- **Hai un'analisi su questi dati?** Pubblicala in `analysis/dataciviclab/analisi/`
+- **Hai un'analisi su questi dati?** Pubblicala su `data-explorer`
 
 ## Struttura
 
