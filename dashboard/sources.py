@@ -1,6 +1,7 @@
 """Fonti dati per la dashboard Ambiente ISPRA.
 
 Multi-dataset: consumo_suolo, bathw, rmn, iffi, urban, pest.
+Tutto derivato dal registry — zero hardcoded.
 """
 
 from __future__ import annotations
@@ -14,136 +15,105 @@ from lab_connectors.duckdb.queries import (
 from lab_connectors.duckdb.queries import (
     query_clean as _query_clean,
 )
-
-try:
-    from lab_connectors.duckdb.queries import detect_local_root
-except ImportError:
-    detect_local_root = None  # type: ignore[assignment]
-
+from lab_connectors.duckdb.queries import (
+    years_from_registry,
+)
 from lab_connectors.formatters import fmt_num, fmt_pct  # noqa: F401  # re-export for pages
+from lab_connectors.registry import load_registry
 
 ROOT = Path(__file__).parent.parent
 PREFIX = "open-ispra/"
-LOCAL_ROOT = detect_local_root(repo_root=ROOT) if detect_local_root else None
 
 # ---------------------------------------------------------------------------
-# Dataset configs: (slug, years)
+# Registry: slug e anni derivati dal registry
 # ---------------------------------------------------------------------------
-_DATASETS = {
-    "consumo_suolo": ("ispra_consumo_suolo", [2024]),
-    "bathw": ("ispra_bathw", [2024]),
-    "rmn": ("ispra_rmn", [2023]),
-    "iffi": ("ispra_iffi", [2024]),
-    "urban": ("ispra_urban", [2018]),
-    "pest": ("ispra_pest", [2021]),
+_registry = load_registry(ROOT / "registry" / "registry.json")
+
+# Map key -> (slug, years) — tutto dal registry
+_DS = {}
+_KEY_MAP = {
+    "consumo_suolo": "ispra_consumo_suolo",
+    "bathw": "ispra_bathw",
+    "rmn": "ispra_rmn",
+    "iffi": "ispra_iffi",
+    "urban": "ispra_urban",
+    "pest": "ispra_pest",
 }
-
-
-def _slug(key: str) -> str:
-    return _DATASETS[key][0]
-
-
-def _years(key: str) -> list[int]:
-    return _DATASETS[key][1]
+for _key, _slug in _KEY_MAP.items():
+    _DS[_key] = (_slug, years_from_registry(_registry, slug=_slug))
 
 
 def _q(key: str, sql: str, year: int | None = None):
-    slug = _slug(key)
-    yrs = [year] if year else _years(key)
-    kwargs = {"prefix": PREFIX}
-    if LOCAL_ROOT:
-        kwargs["local_root"] = LOCAL_ROOT
-    return _query_clean(slug, sql, yrs, **kwargs)
+    slug, years = _DS[key]
+    yrs = [year] if year else years
+    return _query_clean(slug, sql, yrs, prefix=PREFIX)
 
 
 def _mart(key: str, table: str, year: int | None = None):
-    slug = _slug(key)
-    yr = year or _years(key)[-1]
-    kwargs = {"prefix": PREFIX}
-    if LOCAL_ROOT:
-        kwargs["local_root"] = LOCAL_ROOT
-    return _load_mart_table(slug, table, yr, **kwargs)
+    slug, years = _DS[key]
+    yr = year or years[-1]
+    return _load_mart_table(slug, table, yr, prefix=PREFIX)
 
 
 # ---------------------------------------------------------------------------
-# Consumo suolo
+# Query functions
 # ---------------------------------------------------------------------------
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def query_consumo_suolo(sql: str, year: int = 2024):
+def query_consumo_suolo(sql: str, year: int | None = None):
     return _q("consumo_suolo", sql, year)
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def load_mart_consumo_suolo(table: str, year: int = 2024):
+def load_mart_consumo_suolo(table: str, year: int | None = None):
     return _mart("consumo_suolo", table, year)
 
 
-# ---------------------------------------------------------------------------
-# Balneazione
-# ---------------------------------------------------------------------------
-
 @st.cache_data(ttl=3600, show_spinner=False)
-def query_bathw(sql: str, year: int = 2024):
+def query_bathw(sql: str, year: int | None = None):
     return _q("bathw", sql, year)
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def load_mart_bathw(table: str, year: int = 2024):
+def load_mart_bathw(table: str, year: int | None = None):
     return _mart("bathw", table, year)
 
 
-# ---------------------------------------------------------------------------
-# Livelli mare
-# ---------------------------------------------------------------------------
-
 @st.cache_data(ttl=3600, show_spinner=False)
-def query_rmn(sql: str, year: int = 2023):
+def query_rmn(sql: str, year: int | None = None):
     return _q("rmn", sql, year)
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def load_mart_rmn(table: str, year: int = 2023):
+def load_mart_rmn(table: str, year: int | None = None):
     return _mart("rmn", table, year)
 
 
-# ---------------------------------------------------------------------------
-# Frane
-# ---------------------------------------------------------------------------
-
 @st.cache_data(ttl=3600, show_spinner=False)
-def query_iffi(sql: str, year: int = 2024):
+def query_iffi(sql: str, year: int | None = None):
     return _q("iffi", sql, year)
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def load_mart_iffi(table: str, year: int = 2024):
+def load_mart_iffi(table: str, year: int | None = None):
     return _mart("iffi", table, year)
 
 
-# ---------------------------------------------------------------------------
-# Ambiente urbano
-# ---------------------------------------------------------------------------
-
 @st.cache_data(ttl=3600, show_spinner=False)
-def query_urban(sql: str, year: int = 2018):
+def query_urban(sql: str, year: int | None = None):
     return _q("urban", sql, year)
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def load_mart_urban(table: str, year: int = 2018):
+def load_mart_urban(table: str, year: int | None = None):
     return _mart("urban", table, year)
 
 
-# ---------------------------------------------------------------------------
-# Pesticidi
-# ---------------------------------------------------------------------------
-
 @st.cache_data(ttl=3600, show_spinner=False)
-def query_pest(sql: str, year: int = 2021):
+def query_pest(sql: str, year: int | None = None):
     return _q("pest", sql, year)
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def load_mart_pest(table: str, year: int = 2021):
+def load_mart_pest(table: str, year: int | None = None):
     return _mart("pest", table, year)
