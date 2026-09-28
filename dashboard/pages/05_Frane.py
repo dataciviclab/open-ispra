@@ -55,7 +55,7 @@ st.dataframe(
         "regione": "Regione", "nr_frane": "N° frane",
         "pct_frane_nazionali": "% nazionale",
     }),
-    use_container_width=True, hide_index=True,
+    width="stretch", hide_index=True,
 )
 
 st.caption("Dati: ISPRA — Inventario Fenomeni Franosi in Italia (IFFI) · Fonte: open-ispra")

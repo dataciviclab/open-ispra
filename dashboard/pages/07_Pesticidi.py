@@ -82,7 +82,7 @@ st.dataframe(
         "totale_misurazioni": "Misurazioni", "rilevazioni_positive": "Positive",
         "pct_positive": "% Positive",
     }),
-    use_container_width=True, hide_index=True,
+    width="stretch", hide_index=True,
 )
 
 st.caption("Dati: ISPRA — Pesticidi acque sotterranee · Fonte: open-ispra")

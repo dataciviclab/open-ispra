@@ -146,7 +146,7 @@ st.dataframe(
         "sufficiente": "Sufficiente", "scadente": "Scadente",
         "pct_eccellente_buona": "% Ottima",
     }),
-    use_container_width=True, hide_index=True,
+    width="stretch", hide_index=True,
 )
 
 st.caption("Dati: ISPRA — Qualità acque di balneazione · Fonte: open-ispra")

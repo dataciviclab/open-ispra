@@ -117,7 +117,7 @@ st.dataframe(
         "stock_pct": "Stock %", "incremento_netto_ha": "Inc. netto (ha)",
         "ripristino_ha": "Ripristino (ha)", "fascia_consumo_suolo": "Fascia",
     }),
-    use_container_width=True, hide_index=True,
+    width="stretch", hide_index=True,
 )
 
 st.caption("Dati: ISPRA — Consumo di suolo · Fonte: open-ispra")

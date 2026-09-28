@@ -92,7 +92,7 @@ st.dataframe(
         "totale_indicatori": "Indicatori", "tipi_indicatori": "Tipi",
         "media_generale": "Media",
     }),
-    use_container_width=True, hide_index=True,
+    width="stretch", hide_index=True,
 )
 
 st.caption("Dati: ISPRA — Qualità Ambientale Urbana (fino al 2018) · Fonte: open-ispra")
