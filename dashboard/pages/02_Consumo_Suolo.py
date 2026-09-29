@@ -39,28 +39,63 @@ k4.metric(
 
 st.divider()
 
-# ── Fascia consumo suolo per regione ────────────────────────────────────
-st.subheader("Fascia consumo suolo per regione")
+# ── Vista: Regione o Provincia ──────────────────────────────────────────
+vista = st.radio("Vista", ["Regione", "Provincia"], horizontal=True)
 
-df_regione = (
-    df_p.groupby("regione")
-    .agg(
-        stock_pct_medio=("stock_pct", "mean"),
-        inc_netto_totale=("incremento_netto_ha", "sum"),
+if vista == "Regione":
+    st.subheader("Stock consumo suolo per regione")
+
+    df_regione = (
+        df_p.groupby("regione")
+        .agg(
+            stock_pct_medio=("stock_pct", "mean"),
+            inc_netto_totale=("incremento_netto_ha", "sum"),
+            comuni=("comune", "count"),
+        )
+        .reset_index()
+        .sort_values("stock_pct_medio", ascending=False)
     )
-    .reset_index()
-    .sort_values("stock_pct_medio", ascending=False)
-)
 
-fig = go.Figure(go.Bar(
-    x=df_regione["regione"], y=df_regione["stock_pct_medio"],
-    marker_color="#d97706",
-))
-fig.update_layout(
-    height=400, margin={"t": 20, "b": 40},
-    yaxis_title="Stock medio (%)", xaxis_title="",
-)
-st.plotly_chart(fig, width="stretch")
+    fig = go.Figure(go.Bar(
+        x=df_regione["regione"], y=df_regione["stock_pct_medio"],
+        marker_color="#d97706",
+        text=df_regione["stock_pct_medio"].apply(lambda x: f"{x:.1f}%"),
+        textposition="outside",
+    ))
+    fig.update_layout(
+        height=450, margin={"t": 20, "b": 40, "l": 60},
+        yaxis_title="Stock medio (%)", xaxis_title="",
+    )
+    st.plotly_chart(fig, width="stretch")
+
+else:
+    st.subheader("Top province per stock consumo suolo")
+
+    df_prov = (
+        df_p.groupby(["provincia", "regione"])
+        .agg(
+            stock_pct_medio=("stock_pct", "mean"),
+            inc_netto_totale=("incremento_netto_ha", "sum"),
+            comuni=("comune", "count"),
+        )
+        .reset_index()
+        .sort_values("stock_pct_medio", ascending=False)
+    )
+
+    fig = go.Figure(go.Bar(
+        x=df_prov["provincia"].head(20), y=df_prov["stock_pct_medio"].head(20),
+        marker_color="#d97706",
+        text=df_prov["stock_pct_medio"].head(20).apply(lambda x: f"{x:.1f}%"),
+        textposition="outside",
+        hovertext=df_prov["regione"].head(20),
+    ))
+    fig.update_layout(
+        height=450, margin={"t": 20, "b": 40, "l": 60},
+        yaxis_title="Stock medio (%)", xaxis_title="",
+    )
+    st.plotly_chart(fig, width="stretch")
+
+    st.caption("Prime 20 province per stock medio consumato")
 
 st.divider()
 
@@ -107,8 +142,17 @@ st.divider()
 st.subheader("Dettaglio comuni")
 
 regioni = sorted(df_p["regione"].unique())
-regione = st.selectbox("Regione", regioni)
-df_r = df_p[df_p["regione"] == regione].sort_values("stock_pct", ascending=False)
+col_r, col_p = st.columns(2)
+with col_r:
+    regione = st.selectbox("Regione", regioni)
+province_regione = sorted(df_p[df_p["regione"] == regione]["provincia"].unique())
+with col_p:
+    provincia = st.selectbox("Provincia", ["Tutte"] + province_regione)
+
+df_r = df_p[df_p["regione"] == regione]
+if provincia != "Tutte":
+    df_r = df_r[df_r["provincia"] == provincia]
+df_r = df_r.sort_values("stock_pct", ascending=False)
 
 st.dataframe(
     df_r[["comune", "provincia", "stock_pct", "incremento_netto_ha", "ripristino_ha", "fascia_consumo_suolo"]]
