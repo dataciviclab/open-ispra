@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repo": "open-ispra",
   "source_repo": "dataciviclab/open-ispra",
-  "updated_at": "2026-11-01",
+  "updated_at": "2026-11-05",
   "datasets": [
     {
       "slug": "ispra_bathw",
@@ -70,12 +70,12 @@
     {
       "slug": "ispra_consumo_suolo",
       "name": "Ispra Consumo Suolo",
-      "description": "",
+      "description": "Consumo di suolo in Italia per comune (2006-2025). Serie per periodo da ISPRA/SNPA: incrementi netti/lordi, ripristini e stock di suolo consumato.",
       "source": "",
       "source_id": "ispra",
       "period": {
-        "start": 2024,
-        "end": 2024
+        "start": 2006,
+        "end": 2025
       },
       "tags": [
         "ambiente",
@@ -160,7 +160,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-ispra/ispra_consumo_suolo/2024/ispra_consumo_suolo_2024_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-ispra/ispra_consumo_suolo/2025/ispra_consumo_suolo_2025_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -532,7 +532,7 @@
       "table": "mart_comuni",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-ispra/ispra_consumo_suolo/2024/mart_comuni.parquet",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_consumo_suolo/2025/mart_comuni.parquet",
         "multi_file": false
       }
     },
@@ -542,7 +542,7 @@
       "table": "mart_sintesi",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-ispra/ispra_consumo_suolo/2024/mart_sintesi.parquet",
+        "path": "gs://dataciviclab-mart/open-ispra/ispra_consumo_suolo/2025/mart_sintesi.parquet",
         "multi_file": false
       }
     },
@@ -674,11 +674,11 @@
       "source_id": "ispra",
       "status": "ok",
       "label": "ispra_consumo_suolo",
-      "detail": "anno 2024 — mart: si",
+      "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261101T122347Z_da4e0750",
-        "year": 2024,
+        "run_id": "20261105T141843Z_dfeca434",
+        "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
           "raw": 100,
@@ -686,17 +686,17 @@
           "mart": 100
         },
         "output_rows": {
-          "clean": 86856,
-          "mart": 88008
+          "clean": 94752,
+          "mart": 96062
         },
         "output_bytes": {
-          "raw": 1725183,
-          "clean": 864543,
-          "mart": 1469273
+          "raw": 1725572,
+          "clean": 928708,
+          "mart": 1580988
         },
-        "started_at": "2026-11-01T12:23:47.070674+00:00",
-        "finished_at": "2026-11-01T12:23:52.362300+00:00",
-        "duration_seconds": 5.292
+        "started_at": "2026-11-05T14:18:43.139669+00:00",
+        "finished_at": "2026-11-05T14:18:49.941576+00:00",
+        "duration_seconds": 6.802
       }
     },
     {
@@ -831,7 +831,7 @@
       "detail": "anno 2021 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261101T122246Z_c5140cd8",
+        "run_id": "20261105T141831Z_70608956",
         "year": 2021,
         "status": "SUCCESS",
         "quality_score": {
@@ -849,9 +849,9 @@
           "clean": 183205,
           "mart": 183205
         },
-        "started_at": "2026-11-01T12:22:46.884001+00:00",
-        "finished_at": "2026-11-01T12:22:52.273739+00:00",
-        "duration_seconds": 5.39
+        "started_at": "2026-11-05T14:18:31.881606+00:00",
+        "finished_at": "2026-11-05T14:18:39.427030+00:00",
+        "duration_seconds": 7.545
       }
     },
     {
@@ -862,7 +862,7 @@
       "detail": "anno 2024 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261101T122252Z_5bddc3ee",
+        "run_id": "20261105T141839Z_65b71c56",
         "year": 2024,
         "status": "SUCCESS",
         "quality_score": {
@@ -877,12 +877,12 @@
         },
         "output_bytes": {
           "raw": 317656,
-          "clean": 86988,
-          "mart": 86988
+          "clean": 86983,
+          "mart": 86983
         },
-        "started_at": "2026-11-01T12:22:52.561930+00:00",
-        "finished_at": "2026-11-01T12:22:54.397747+00:00",
-        "duration_seconds": 1.836
+        "started_at": "2026-11-05T14:18:39.756040+00:00",
+        "finished_at": "2026-11-05T14:18:41.925827+00:00",
+        "duration_seconds": 2.17
       }
     }
   ],
