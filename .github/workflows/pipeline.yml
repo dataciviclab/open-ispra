@@ -1,3 +1,13 @@
+# Pipeline — open-ispra
+#
+# Post-merge + refresh. Usa pipeline-reusable.yml dell'org.
+# Su PR merged: solo i dataset toccati (detect + batch). Su schedule/dispatch: tutti.
+#
+# Con 8 dataset (pest e rmn pesanti) il run completo a ogni merge è lungo:
+# il batch selettivo esegue solo gli slug cambiati. Il registry resta completo
+# perché le entry dei dataset non eseguiti sono preservate dal registry.json
+# committato (il builder usa i parquet locali solo per le entry presenti in out/).
+
 name: Pipeline
 
 on:
@@ -10,13 +20,20 @@ on:
     - cron: "0 6 1 * *"
   workflow_dispatch:
 
+concurrency:
+  group: open-ispra-pipeline-${{ github.event.pull_request.number || github.ref || 'schedule' }}
+  cancel-in-progress: false
+
 jobs:
   pipeline:
     if: github.event.pull_request.merged == true || github.event_name != 'pull_request'
     uses: dataciviclab/.github/.github/workflows/pipeline-reusable.yml@main
     with:
       repo-slug: "open-ispra"
+      # Su PR merged: solo dataset cambiati (batch). Su schedule/dispatch: tutti.
+      detect-paths: "datasets support"
       run-command: "make run-all"
+      run-batch-command: "make run-batch"
       extra-env: "TOOLKIT_ALLOW_SCRIPT_SOURCE=1"
     permissions:
       contents: write

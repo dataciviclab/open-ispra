@@ -34,6 +34,16 @@ run:
 .PHONY: run-all
 run-all: seeds run
 
+# --- Batch selettivo (post-merge su PR merged) -------------------------------
+# Su PR merged la CI esegue solo i dataset toccati (batch.txt generato dal
+# workflow reusable). I support girano comunque (seeds) prima dei dataset.
+# Su schedule/dispatch la CI usa run-all (tutti).
+
+.PHONY: run-batch
+run-batch: seeds
+	@test -s batch.txt || { echo "batch.txt vuoto — nessun dataset da processare"; exit 0; }
+	$(TOOLKIT) run --batch batch.txt
+
 # --- Validazione config -------------------------------------------------------
 
 .PHONY: check
