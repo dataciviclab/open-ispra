@@ -16,18 +16,22 @@ Ogni indicatore è un nodo con:
 .../urban/indicator/00201_{istat}_{indicator}_{year}
 ```
 - `00201`: prefisso catalogo
-- `istat`: codice ISTAT comune (6 cifre, es. `001272` = Torino)
+- `istat`: codice ISTAT — **non sempre un comune**: 6 cifre = comune
+  (es. `001272` = Torino), 3 cifre = provincia, 2 cifre = regione
 - `indicator`: codice indicatore (es. `ur2242`, `ur77`, `ur13`)
 - `year`: anno (es. 2018)
 
 ## Anni disponibili
-1970-2019 (~50 anni di serie storica)
+1970-2019 (~50 anni, copertura molto disomogenea tra anni e indicatori)
 
 ## Volume
-~22.270 indicatori per anno, ~600 comuni capoluogo
+~9.000-26.000 righe/anno. Circa 150 comuni + 125 province + 20 regioni
+(il codice `istat` nel URI NON è sempre un comune — vedi `livello` nel clean).
 
 ## Quirks
-- I comuni sono ~600 (capoluogo + grandi città)
-- L'ISTAT code nel URI è a 6 cifre (codice comune ISTAT)
-- Diverse unità di misura: n, t, %, si/no, n*10+6, n/h, kg/inh, ecc.
+- Il codice ISTAT nel URI è a lunghezza variabile: 6 = comune, 3 = provincia,
+  2 = regione. La colonna `livello` nel clean lo esplicita.
+- Non sono ~600 comuni: i comuni distinti (6 cifre) sono ~150.
+- Diverse unità di misura: n, t, %, si/no, n*10+6, n/h, kg/inh, ecc. —
+  una media unica dei valori NON è interpretabile.
 - Il dataset è molto ampio: serve paginazione SPARQL (pages=10, step=5000)

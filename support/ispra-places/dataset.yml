@@ -6,7 +6,7 @@ dataset:
   source_id: "ispra_linked_data"
   tags: [anagrafica, ispra, istat, comuni]
   category: support
-  description: "Anagrafica comuni italiani dal place graph ISPRA. Codice ISTAT + nome. Usata per JOIN con altri dataset ISPRA."
+  description: "Place graph ISPRA (Italia, regioni, province, comuni) con codice ISTAT e nome. Anagrafica per JOIN: filtra livello='comune' per i soli comuni. Include comuni storici (non solo quelli in vita)."
   years: [2024]
 
 raw:
@@ -34,7 +34,7 @@ raw:
 
 clean:
   sql: "sql/clean.sql"
-  required_columns: [codice_istat, nome]
+  required_columns: [codice_istat, nome, livello]
   validate:
     primary_key: [codice_istat]
     min_rows: 7000
@@ -48,7 +48,7 @@ mart:
   validate:
     table_rules:
       mart_places:
-        required_columns: [codice_istat, nome]
+        required_columns: [codice_istat, nome, livello]
         primary_key: [codice_istat]
         min_rows: 7000
 

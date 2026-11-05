@@ -1,6 +1,8 @@
 -- ISPRA Places — MART
--- Anagrafica comuni (passthrough da clean)
+-- Place graph (passthrough da clean): Italia, regioni, province e comuni.
+-- Per i soli comuni filtra livello = 'comune'.
 SELECT
     codice_istat,
-    nome
+    nome,
+    livello
 FROM clean_input

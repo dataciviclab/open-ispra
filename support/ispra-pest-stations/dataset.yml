@@ -8,6 +8,8 @@ dataset:
   category: support
   description: "Anagrafica stazioni pesticidi ISPRA con coordinate geografiche (2018-2021). ~4-5K stazioni/anno."
   years: [2021]
+  # Copertura reale: anagrafica stazioni 2018-2021.
+  time_coverage: {start_year: 2018, end_year: 2021}
 
 raw:
   sources:

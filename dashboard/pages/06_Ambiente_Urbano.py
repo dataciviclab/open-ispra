@@ -86,11 +86,10 @@ st.divider()
 st.subheader("Riepilogo annuale")
 
 st.dataframe(
-    df[["anno", "totale_comuni", "totale_indicatori", "tipi_indicatori", "media_generale"]]
+    df[["anno", "totale_comuni", "totale_indicatori", "tipi_indicatori"]]
     .rename(columns={
         "anno": "Anno", "totale_comuni": "Comuni",
         "totale_indicatori": "Indicatori", "tipi_indicatori": "Tipi",
-        "media_generale": "Media",
     }),
     width="stretch", hide_index=True,
 )

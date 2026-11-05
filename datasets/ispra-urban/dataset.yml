@@ -8,6 +8,8 @@ dataset:
   category: ambiente
   description: "Qualita ambientale urbana in Italia (1970-2019). Indicatori ambientali per comune da linked.isprambiente.it. 27 anni, ~245-600 comuni."
   years: [2018]
+  # Copertura reale: serie 1970-2019 in un unico fetch.
+  time_coverage: {start_year: 1970, end_year: 2019}
   # Anno nominale: lo script recupera TUTTI gli anni disponibili in un singolo CSV.
   # year=2018 e il nome del run, non limita i dati scaricati.
 
@@ -32,7 +34,7 @@ clean:
       value: VARCHAR
       uom: VARCHAR
       year: VARCHAR
-  required_columns: [codice_istat, indicatore, anno, valore, unita_misura]
+  required_columns: [codice_istat, livello, indicatore, anno, valore, unita_misura]
   validate:
     not_null: [codice_istat, indicatore, anno]
     min_rows: 50000
@@ -49,7 +51,7 @@ mart:
   validate:
     table_rules:
       mart_comuni:
-        required_columns: [codice_istat, anno, totale_indicatori]
+        required_columns: [codice_istat, livello, anno, totale_indicatori]
         primary_key: [codice_istat, anno]
         min_rows: 1000
       mart_sintesi:
