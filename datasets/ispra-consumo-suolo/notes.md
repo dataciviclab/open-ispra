@@ -84,8 +84,10 @@ di stock annuali dal file XLSX mentre noi ricostruiamo dagli incrementi netti.
 
 ## Note tecniche
 
-- I valori ISPRA usano la virgola come separatore decimale — gestito con
-  REPLACE(',', '.') prima del TRY_CAST.
+- I valori numerici ISPRA arrivano dal reader già tipizzati (`float64`): il
+  clean usa le macro standard `cast_double` / `normalize_string` / `cast_int`.
+  (Nota storica: la versione precedente faceva `REPLACE(',', '.')` supponendo
+  decimali con virgola — era un no-op sul rilascio attuale.)
 - stock_2025 e stock_pct_2025 sono gli unici valori direttamente dal file;
   gli stock precedenti sono ricostruiti.
 - I periodi 2006-2012 e 2012-2015 sono pluriennali — non confrontabili

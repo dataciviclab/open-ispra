@@ -6,7 +6,10 @@ dataset:
   source_id: "ispra"
   tags: [ambiente, ispra, consumo, suolo]
   category: ambiente
+  description: "Consumo di suolo in Italia per comune (2006-2025). Serie per periodo da ISPRA/SNPA: incrementi netti/lordi, ripristini e stock di suolo consumato."
   years: [ 2025 ]
+  # Copertura reale: i periodi vanno da 2006-2012 a 2024-2025.
+  time_coverage: {start_year: 2006, end_year: 2025}
   # Anno nominale: il file XLSX copre l'intera serie 2006-2025.
   # Non esistono file separati per anno: year=2025 e` il rilascio piu recente.
   # Output in formato long: una riga per comune x periodo (12 periodi).

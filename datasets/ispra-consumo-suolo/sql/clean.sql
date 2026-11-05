@@ -26,67 +26,67 @@
 
 WITH wide AS (
     SELECT
-        CAST(TRIM(CAST("PRO_COM" AS VARCHAR)) AS VARCHAR)                             AS pro_com,
-        TRIM(CAST("Nome_Comune"   AS VARCHAR))                                        AS comune,
-        TRIM(CAST("Nome_Provincia" AS VARCHAR))                                       AS provincia,
-        TRIM(CAST("Nome_Regione"   AS VARCHAR))                                       AS regione,
+        normalize_string("PRO_COM") AS pro_com,
+        normalize_string("Nome_Comune") AS comune,
+        normalize_string("Nome_Provincia") AS provincia,
+        normalize_string("Nome_Regione") AS regione,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2006-2012 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2006_2012,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2006-2012 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2006_2012,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2006-2012 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2006_2012,
+        cast_double("Incremento netto 2006-2012 [ettari]") AS inc_netto_2006_2012,
+        cast_double("Incremento lordo 2006-2012 [ettari]") AS inc_lordo_2006_2012,
+        cast_double("Ripristino 2006-2012 [ettari]") AS ripristino_2006_2012,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2012-2015 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2012_2015,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2012-2015 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2012_2015,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2012-2015 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2012_2015,
+        cast_double("Incremento netto 2012-2015 [ettari]") AS inc_netto_2012_2015,
+        cast_double("Incremento lordo 2012-2015 [ettari]") AS inc_lordo_2012_2015,
+        cast_double("Ripristino 2012-2015 [ettari]") AS ripristino_2012_2015,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2015-2016 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2015_2016,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2015-2016 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2015_2016,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2015-2016 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2015_2016,
+        cast_double("Incremento netto 2015-2016 [ettari]") AS inc_netto_2015_2016,
+        cast_double("Incremento lordo 2015-2016 [ettari]") AS inc_lordo_2015_2016,
+        cast_double("Ripristino 2015-2016 [ettari]") AS ripristino_2015_2016,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2016-2017 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2016_2017,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2016-2017 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2016_2017,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2016-2017 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2016_2017,
+        cast_double("Incremento netto 2016-2017 [ettari]") AS inc_netto_2016_2017,
+        cast_double("Incremento lordo 2016-2017 [ettari]") AS inc_lordo_2016_2017,
+        cast_double("Ripristino 2016-2017 [ettari]") AS ripristino_2016_2017,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2017-2018 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2017_2018,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2017-2018 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2017_2018,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2017-2018 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2017_2018,
+        cast_double("Incremento netto 2017-2018 [ettari]") AS inc_netto_2017_2018,
+        cast_double("Incremento lordo 2017-2018 [ettari]") AS inc_lordo_2017_2018,
+        cast_double("Ripristino 2017-2018 [ettari]") AS ripristino_2017_2018,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2018-2019 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2018_2019,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2018-2019 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2018_2019,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2018-2019 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2018_2019,
+        cast_double("Incremento netto 2018-2019 [ettari]") AS inc_netto_2018_2019,
+        cast_double("Incremento lordo 2018-2019 [ettari]") AS inc_lordo_2018_2019,
+        cast_double("Ripristino 2018-2019 [ettari]") AS ripristino_2018_2019,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2019-2020 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2019_2020,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2019-2020 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2019_2020,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2019-2020 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2019_2020,
+        cast_double("Incremento netto 2019-2020 [ettari]") AS inc_netto_2019_2020,
+        cast_double("Incremento lordo 2019-2020 [ettari]") AS inc_lordo_2019_2020,
+        cast_double("Ripristino 2019-2020 [ettari]") AS ripristino_2019_2020,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2020-2021 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2020_2021,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2020-2021 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2020_2021,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2020-2021 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2020_2021,
+        cast_double("Incremento netto 2020-2021 [ettari]") AS inc_netto_2020_2021,
+        cast_double("Incremento lordo 2020-2021 [ettari]") AS inc_lordo_2020_2021,
+        cast_double("Ripristino 2020-2021 [ettari]") AS ripristino_2020_2021,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2021-2022 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2021_2022,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2021-2022 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2021_2022,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2021-2022 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2021_2022,
+        cast_double("Incremento netto 2021-2022 [ettari]") AS inc_netto_2021_2022,
+        cast_double("Incremento lordo 2021-2022 [ettari]") AS inc_lordo_2021_2022,
+        cast_double("Ripristino 2021-2022 [ettari]") AS ripristino_2021_2022,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2022-2023 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2022_2023,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2022-2023 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2022_2023,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2022-2023 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2022_2023,
+        cast_double("Incremento netto 2022-2023 [ettari]") AS inc_netto_2022_2023,
+        cast_double("Incremento lordo 2022-2023 [ettari]") AS inc_lordo_2022_2023,
+        cast_double("Ripristino 2022-2023 [ettari]") AS ripristino_2022_2023,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2023-2024 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2023_2024,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2023-2024 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2023_2024,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2023-2024 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2023_2024,
+        cast_double("Incremento netto 2023-2024 [ettari]") AS inc_netto_2023_2024,
+        cast_double("Incremento lordo 2023-2024 [ettari]") AS inc_lordo_2023_2024,
+        cast_double("Ripristino 2023-2024 [ettari]") AS ripristino_2023_2024,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento netto 2024-2025 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_netto_2024_2025,
-        TRY_CAST(REPLACE(TRIM(CAST("Incremento lordo 2024-2025 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE) AS inc_lordo_2024_2025,
-        TRY_CAST(REPLACE(TRIM(CAST("Ripristino 2024-2025 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS ripristino_2024_2025,
+        cast_double("Incremento netto 2024-2025 [ettari]") AS inc_netto_2024_2025,
+        cast_double("Incremento lordo 2024-2025 [ettari]") AS inc_lordo_2024_2025,
+        cast_double("Ripristino 2024-2025 [ettari]") AS ripristino_2024_2025,
 
-        TRY_CAST(REPLACE(TRIM(CAST("Suolo consumato 2025 [ettari]" AS VARCHAR)), ',', '.') AS DOUBLE)     AS stock_ha_2025,
-        TRY_CAST(REPLACE(TRIM(CAST("Suolo consumato 2025 [%]" AS VARCHAR)), ',', '.') AS DOUBLE)           AS stock_pct_2025
+        cast_double("Suolo consumato 2025 [ettari]") AS stock_ha_2025,
+        cast_double("Suolo consumato 2025 [%]") AS stock_pct_2025
 
     FROM raw_input
 
     WHERE
         "PRO_COM" IS NOT NULL
-        AND TRY_CAST("PRO_COM" AS INTEGER) IS NOT NULL
+        AND cast_int("PRO_COM") IS NOT NULL
 ),
 
 -- Superficie comunale in ettari (calcolata dallo stock 2025)
@@ -185,9 +185,9 @@ SELECT
     regione,
     periodo,
     anno,
-    ROUND(incremento_netto_ha, 4)   AS incremento_netto_ha,
-    ROUND(incremento_lordo_ha, 4)   AS incremento_lordo_ha,
-    ROUND(ripristino_ha, 4)         AS ripristino_ha,
+    ROUND(incremento_netto_ha, 4) AS incremento_netto_ha,
+    ROUND(incremento_lordo_ha, 4) AS incremento_lordo_ha,
+    ROUND(ripristino_ha, 4) AS ripristino_ha,
     -- stock_ha = stock_2025 - somma incrementi successivi al periodo corrente
     ROUND(stock_ha_2025 - (cum_inc_da_2025 - incremento_netto_ha), 2) AS stock_ha,
     ROUND((stock_ha_2025 - (cum_inc_da_2025 - incremento_netto_ha)) / NULLIF(sup_ha, 0) * 100, 4) AS stock_pct
