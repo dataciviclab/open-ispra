@@ -18,7 +18,10 @@ raw:
     - name: "ispra_rmn_fetch"
       type: "script"
       client:
-        timeout: 900
+        # Il fetch scarica ~30K CSV: ~11-15 min, variabile col carico. A 900s
+        # andava in timeout a intermittenza (run #9 rosso, run 2026-11-01 ok).
+        # 1800s = 2x headroom. Ottimizzazione incrementale/parallela: issue #4.
+        timeout: 1800
       args:
         command: "python scripts/fetch_rmn.py raw_input.csv"
         output: "raw_input.csv"
