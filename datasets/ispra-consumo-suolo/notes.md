@@ -72,6 +72,18 @@ La superficie comunale in ettari è calcolata come:
 sup_ha = stock_ha_2025 / stock_pct_2025 * 100
 ```
 
+## Cambio fonte: `estratto_dati` → `dati_principali` (re-basing)
+
+Il passaggio dal file ISPRA `estratto_dati_2025_anni_2006_2024.xlsx` al file
+SNPA `consumo_suolo_2026_dati_principali-1.xlsx` **non è solo un anno in più**:
+l'intera serie stock è traslata di **−2.598 ha** (es. 2024: 21.574 → 21.549 km²),
+mentre gli **incrementi netti per periodo sono invariati**. È una revisione
+della fonte (o una differenza di definizione tra i due prodotti).
+
+- Impatto: chi confronta lo stock tra il vecchio e il nuovo clean vede un
+  **gradino di ~2.600 ha**. I flussi (incrementi) restano confrontabili.
+- Lo stock 2025 ricostruito (**21.644 km² / 7,19%**) coincide con SNPA 2026.
+
 ## Confronto con SuoloData.it (Milano)
 
 | Fonte | 2016 | 2024 | Δ |
