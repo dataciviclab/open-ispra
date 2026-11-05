@@ -7,8 +7,8 @@ SELECT
     -- Parse URI: estrai codice sito e indicatore
     REGEXP_EXTRACT(uri, '/indicator/([^_]+_[^_]+)_([a-z]+)_', 1) AS codice_sito,
     REGEXP_EXTRACT(uri, '/indicator/[^_]+_[^_]+_([a-z]+)_', 1) AS indicatore,
-    CAST(year AS INTEGER) AS anno,
-    CAST(value AS DOUBLE) AS valore,
+    cast_int(year) AS anno,
+    cast_double(value) AS valore,
     CASE
         WHEN uom LIKE '%quality%' THEN 'qualita_0_4'
         WHEN uom LIKE '%number%' THEN 'numero'
@@ -16,4 +16,4 @@ SELECT
     END AS unita_misura
 FROM raw_input
 WHERE value IS NOT NULL
-  AND TRY_CAST(value AS DOUBLE) IS NOT NULL
+  AND cast_double(value) IS NOT NULL

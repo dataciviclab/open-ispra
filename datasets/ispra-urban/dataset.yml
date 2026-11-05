@@ -8,6 +8,8 @@ dataset:
   category: ambiente
   description: "Qualita ambientale urbana in Italia (1970-2019). Indicatori ambientali per comune da linked.isprambiente.it. 27 anni, ~245-600 comuni."
   years: [2018]
+  # Copertura reale: serie 1970-2019 in un unico fetch.
+  time_coverage: {start_year: 1970, end_year: 2019}
   # Anno nominale: lo script recupera TUTTI gli anni disponibili in un singolo CSV.
   # year=2018 e il nome del run, non limita i dati scaricati.
 

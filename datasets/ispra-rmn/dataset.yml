@@ -8,6 +8,10 @@ dataset:
   category: ambiente
   description: "Rete Mareografica Nazionale — livelli marini da 36 stazioni costiere italiane (2010-2023). Dati orari da boe e st fisse."
   years: [2023]
+  # Copertura reale del clean pubblicato: 2010-2022.
+  # (La description dice 2010-2023: da riverificare quando il fetch verra'
+  #  reso eseguibile — vedi issue #4 sul client timeout.)
+  time_coverage: {start_year: 2010, end_year: 2022}
 
 raw:
   sources:

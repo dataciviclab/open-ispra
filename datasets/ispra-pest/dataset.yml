@@ -8,6 +8,8 @@ dataset:
   category: ambiente
   description: "Concentrazioni pesticidi nelle acque sotterranee in Italia (2018-2021). ~3M misurazioni/anno per sostanza CAS."
   years: [2021]
+  # Copertura reale: lo script recupera tutti gli anni (2018-2021) in un singolo CSV.
+  time_coverage: {start_year: 2018, end_year: 2021}
   # Anno nominale: lo script recupera tutti gli anni (2018-2021) in un singolo CSV.
 
 raw:

@@ -7,8 +7,8 @@ SELECT
     -- Parse URI: estrai codice ISTAT comune e indicatore
     REGEXP_EXTRACT(uri, '/indicator/00201_([0-9]+)_', 1) AS codice_istat,
     REGEXP_EXTRACT(uri, '_([a-z]+[0-9]+)_', 1) AS indicatore,
-    CAST(year AS INTEGER) AS anno,
-    CAST(value AS DOUBLE) AS valore,
+    cast_int(year) AS anno,
+    cast_double(value) AS valore,
     CASE
         WHEN uom LIKE '%n*10+6%' THEN 'milioni'
         WHEN uom LIKE '%n*10+3%' THEN 'migliaia'
@@ -27,4 +27,4 @@ SELECT
     END AS unita_misura
 FROM raw_input
 WHERE value IS NOT NULL
-  AND TRY_CAST(value AS DOUBLE) IS NOT NULL
+  AND cast_double(value) IS NOT NULL

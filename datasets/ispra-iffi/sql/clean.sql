@@ -3,8 +3,8 @@
 
 SELECT
     normalize_string(regione) AS regione,
-    CAST(cod_regione AS INTEGER) AS cod_regione,
-    CAST(nr_frane AS BIGINT) AS nr_frane
+    cast_int(cod_regione) AS cod_regione,
+    cast_bigint(nr_frane) AS nr_frane
 FROM raw_input
 WHERE regione IS NOT NULL
   AND nr_frane > 0

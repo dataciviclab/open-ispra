@@ -3,7 +3,7 @@
 -- Dedup: tengiamo solo una entry per codice ISTAT
 -- (alcuni comuni hanno nomi bilingue es. "Altrei" / "Anterivo/Altrei")
 SELECT
-    istat AS codice_istat,
+    normalize_string(istat) AS codice_istat,
     normalize_string(name) AS nome
 FROM (
     SELECT

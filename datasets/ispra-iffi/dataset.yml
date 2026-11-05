@@ -23,6 +23,7 @@ clean:
   required_columns: [regione, nr_frane]
   validate:
     not_null: [regione]
+    primary_key: [regione]
     min_rows: 20
 
 mart:
