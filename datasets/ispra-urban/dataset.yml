@@ -34,7 +34,7 @@ clean:
       value: VARCHAR
       uom: VARCHAR
       year: VARCHAR
-  required_columns: [codice_istat, indicatore, anno, valore, unita_misura]
+  required_columns: [codice_istat, livello, indicatore, anno, valore, unita_misura]
   validate:
     not_null: [codice_istat, indicatore, anno]
     min_rows: 50000
@@ -51,7 +51,7 @@ mart:
   validate:
     table_rules:
       mart_comuni:
-        required_columns: [codice_istat, anno, totale_indicatori]
+        required_columns: [codice_istat, livello, anno, totale_indicatori]
         primary_key: [codice_istat, anno]
         min_rows: 1000
       mart_sintesi:
