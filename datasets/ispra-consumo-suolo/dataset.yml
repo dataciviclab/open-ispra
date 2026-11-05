@@ -6,19 +6,19 @@ dataset:
   source_id: "ispra"
   tags: [ambiente, ispra, consumo, suolo]
   category: ambiente
-  years: [ 2024 ]
-  # Anno nominale: il file XLSX copre l'intera serie 2006-2024.
-  # Non esistono file separati per anno: year=2024 e` il rilascio piu recente.
-  # Output in formato long: una riga per comune x periodo (11 periodi).
+  years: [ 2025 ]
+  # Anno nominale: il file XLSX copre l'intera serie 2006-2025.
+  # Non esistono file separati per anno: year=2025 e` il rilascio piu recente.
+  # Output in formato long: una riga per comune x periodo (12 periodi).
 
 raw:
   sources:
     - name: "ispra_consumo_suolo_xlsx"
       type: "http_file"
       args:
-        url: "https://www.isprambiente.gov.it/it/attivita/suolo-e-territorio/suolo/il-c\
-          onsumo-di-suolo/consumo_di_suolo_estratto_dati_2025_anni_2006_2024.xl\
-          sx"
+        # Rilascio 2026 (serie 2006-2025), pubblicato sul canale SNPA.
+        # Il vecchio "estratto_dati" su isprambiente.gov.it si ferma al 2024.
+        url: "https://www.snpambiente.it/wp-content/uploads/2026/10/consumo_suolo_2026_dati_principali-1.xlsx"
         filename: "ispra_consumo_suolo_{year}.xlsx"
       primary: true
 
@@ -28,13 +28,14 @@ clean:
   read:
     source: auto
     mode: latest
-    sheet_name: "Comuni_2006_2024"
-    # La riga 0 e` header (nomi colonne originali ISPRA)
-    # La riga 1 e` spesso una riga di unita` misura: skippiata in clean.sql
+    sheet_name: "Comuni_2006_2025"
+    # La riga 0 e` header (nomi colonne originali ISPRA). Nel rilascio 2026 non
+    # c'e` riga di unita` misura; eventuali righe non-comune sono scartate dal
+    # filtro PRO_COM in clean.sql.
   validate:
     not_null: [anno]
     min_rows: 70000
-    # ~7.896 comuni x 11 periodi = ~86.856 righe in formato long
+    # ~7.896 comuni x 12 periodi = ~94.752 righe in formato long
 
 mart:
   tables:

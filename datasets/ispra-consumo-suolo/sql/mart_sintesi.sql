@@ -1,7 +1,7 @@
 -- mart_sintesi — Consumo suolo: trend per livello (nazionale/regione/provincia)
 --
 -- Unisce i vecchi 3 trend separati in un unico mart con colonna `livello`.
--- Solo periodi annuali (2016-2024), non i pluriennali 2006-2012 e 2012-2015.
+-- Solo periodi annuali (2016-2025), non i pluriennali 2006-2012 e 2012-2015.
 
 with
 nazionale as (
