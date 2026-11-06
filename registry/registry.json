@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repo": "open-ispra",
   "source_repo": "dataciviclab/open-ispra",
-  "updated_at": "2026-11-05",
+  "updated_at": "2026-11-06",
   "datasets": [
     {
       "slug": "ispra_bathw",
@@ -719,7 +719,7 @@
       "detail": "anno 2024 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261105T144452Z_cf97e376",
+        "run_id": "20261106T213215Z_37b4d401",
         "year": 2024,
         "status": "SUCCESS",
         "quality_score": {
@@ -737,9 +737,9 @@
           "clean": 806,
           "mart": 1862
         },
-        "started_at": "2026-11-05T14:44:52.853051+00:00",
-        "finished_at": "2026-11-05T14:45:05.953370+00:00",
-        "duration_seconds": 13.1
+        "started_at": "2026-11-06T21:32:15.349357+00:00",
+        "finished_at": "2026-11-06T21:32:27.325506+00:00",
+        "duration_seconds": 11.976
       }
     },
     {
@@ -843,7 +843,7 @@
       "detail": "anno 2021 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261105T152317Z_35607eb7",
+        "run_id": "20261106T213206Z_ae86ef1e",
         "year": 2021,
         "status": "SUCCESS",
         "quality_score": {
@@ -861,9 +861,9 @@
           "clean": 183205,
           "mart": 183205
         },
-        "started_at": "2026-11-05T15:23:17.847475+00:00",
-        "finished_at": "2026-11-05T15:23:25.181229+00:00",
-        "duration_seconds": 7.334
+        "started_at": "2026-11-06T21:32:06.547465+00:00",
+        "finished_at": "2026-11-06T21:32:12.685159+00:00",
+        "duration_seconds": 6.138
       }
     },
     {
@@ -874,7 +874,7 @@
       "detail": "anno 2024 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261105T152325Z_0d0c0ac2",
+        "run_id": "20261106T213212Z_fbb4dee1",
         "year": 2024,
         "status": "SUCCESS",
         "quality_score": {
@@ -889,12 +889,12 @@
         },
         "output_bytes": {
           "raw": 317656,
-          "clean": 87711,
-          "mart": 87711
+          "clean": 87731,
+          "mart": 87731
         },
-        "started_at": "2026-11-05T15:23:25.623633+00:00",
-        "finished_at": "2026-11-05T15:23:27.878498+00:00",
-        "duration_seconds": 2.255
+        "started_at": "2026-11-06T21:32:12.971208+00:00",
+        "finished_at": "2026-11-06T21:32:15.081196+00:00",
+        "duration_seconds": 2.11
       }
     }
   ],
