@@ -8,23 +8,27 @@ Uso: python fetch_iffi.py [output_path]
 """
 
 import csv
-import json
-import ssl
 import sys
-import urllib.request
+
+from lab_connectors.http import HttpClient
 
 API_BASE = "https://idrogeo.isprambiente.it/api"
+_client = HttpClient(timeout=30, max_retries=2, user_agent="DataCivicLab-open-ispra/1.0")
 
 
 def api_get(path: str) -> dict:
-    """Esegui GET all'IdroGEO API, ritorna JSON."""
+    """Esegui GET all'IdroGEO API, ritorna JSON.
+
+    Usa HttpClient (retry + SSL fallback): l'endpoint ha una catena TLS
+    incompleta, ma il fallback resta confinato alla richiesta invece di
+    disattivare la verifica per tutto lo script.
+    """
     url = f"{API_BASE}{path}"
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
-    req = urllib.request.Request(url, headers={"Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=30, context=ctx) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+    result = _client.get(url, headers={"Accept": "application/json"})
+    if not result.is_ok or result.response is None or result.response.status_code >= 400:
+        status = result.response.status_code if result.response is not None else "no response"
+        raise RuntimeError(f"IdroGEO API error {status} per {url}: {result.err}")
+    return result.response.json()
 
 
 def main():
